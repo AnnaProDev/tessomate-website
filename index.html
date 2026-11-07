@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tessomate — Make.com automation &amp; front-end development</title>
+  <meta name="description" content="Tessomate connects your tools into one working system: Make.com automation and front-end development for growing businesses.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #14161F;
+      --ink-2: #1E212C;
+      --paper: #F4F1EA;
+      --paper-2: #F7F6F2;
+      --gold: #F2B84B;
+      --gold-deep: #8A5A0B;
+      --teal: #1F6F68;
+      --graphite: #4E5360;
+      --mist: #A9AEBB;
+      --line: #DCD8CE;
+      --radius: 12px;
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 400 17px/1.6 Inter, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3 { font-family: "Space Grotesk", sans-serif; letter-spacing: -0.02em; margin: 0; }
+    p { margin: 0; }
+    a { color: var(--gold-deep); }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+    .eyebrow { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--graphite); font-weight: 600; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 48px; padding: 0 24px; border-radius: 10px;
+      font: 700 16px "Space Grotesk", sans-serif; text-decoration: none;
+      transition: transform .15s ease, background .15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:focus-visible, a:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+    .btn-ink { background: var(--ink); color: var(--paper); }
+    .btn-gold { background: var(--gold); color: var(--ink); }
+    .btn-line { color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
+
+    /* Header */
+    .site-header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(244, 241, 234, 0.92);
+      backdrop-filter: saturate(140%) blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    .site-header .wrap { height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .logo { display: flex; align-items: center; }
+    .logo svg { width: 190px; height: auto; display: block; }
+    .nav { display: flex; align-items: center; gap: 32px; }
+    .nav a:not(.btn) { color: var(--ink); text-decoration: none; font-weight: 500; font-size: 15px; }
+    .nav a:not(.btn):hover { color: var(--gold-deep); }
+    .nav .btn { min-height: 44px; padding: 0 20px; font-size: 15px; }
+
+    /* Hero */
+    .hero { padding: 96px 0 88px; }
+    .hero h1 { font-size: clamp(40px, 6.5vw, 72px); line-height: 1.03; max-width: 860px; margin-top: 16px; }
+    .hero p.lead { font-size: clamp(18px, 2vw, 21px); color: var(--graphite); max-width: 640px; margin-top: 24px; }
+    .hero .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
+
+    /* Tiles motif */
+    .tiles { display: grid; grid-template-columns: repeat(3, 22px); gap: 5px; }
+    .tiles span { width: 22px; height: 22px; border-radius: 5px; background: var(--ink); }
+    .tiles span.g { background: var(--gold); }
+    .tiles span.x { background: transparent; }
+
+    /* Services */
+    .services { padding: 88px 0; background: var(--paper-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .section-head { display: flex; flex-direction: column; gap: 12px; margin-bottom: 44px; }
+    .section-head h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.1; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .card {
+      background: #fff; border: 1px solid var(--line); border-radius: 18px;
+      padding: 32px; display: flex; flex-direction: column; gap: 16px;
+    }
+    .card h3 { font-size: 26px; }
+    .card p { color: var(--graphite); }
+    .card ul { margin: 4px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+    .card li { display: flex; gap: 10px; align-items: flex-start; }
+    .card li::before {
+      content: ""; flex: 0 0 10px; height: 10px; margin-top: 8px;
+      border-radius: 3px; background: var(--gold);
+    }
+
+    /* Process */
+    .process { padding: 88px 0; }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; counter-reset: step; }
+    .step { border-top: 2px solid var(--ink); padding-top: 20px; display: grid; gap: 10px; }
+    .step::before {
+      counter-increment: step; content: "0" counter(step);
+      font: 700 15px "Space Grotesk", sans-serif; color: var(--gold-deep);
+    }
+    .step h3 { font-size: 22px; }
+    .step p { color: var(--graphite); }
+
+    /* Contact */
+    .contact { background: var(--ink); color: var(--paper); padding: 96px 0; }
+    .contact .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 40px; }
+    .contact h2 { font-size: clamp(32px, 5vw, 52px); line-height: 1.05; max-width: 640px; }
+    .contact p { color: var(--mist); margin-top: 16px; max-width: 560px; }
+    .contact .tiles span { background: var(--paper); }
+    .contact .tiles span.g { background: var(--gold); }
+    .contact .tiles span.x { background: transparent; }
+    .contact-actions { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+    .contact a.mail { color: var(--paper); font-weight: 500; }
+
+    /* Footer */
+    footer { background: var(--ink); color: var(--mist); border-top: 1px solid var(--ink-2); }
+    footer .wrap { padding-top: 28px; padding-bottom: 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 14px; }
+
+    @media (max-width: 760px) {
+      .nav a:not(.btn) { display: none; }
+      .logo svg { width: 150px; }
+      .hero { padding: 64px 0 64px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .btn { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="logo" href="#top" aria-label="Tessomate home">
+        <svg viewBox="0 0 640 76" aria-hidden="true" style="overflow: visible">
+          <rect x="0" y="0" width="21" height="21" rx="4" fill="#14161F"/>
+          <rect x="25" y="0" width="21" height="21" rx="4" fill="#F2B84B"/>
+          <rect x="50" y="0" width="21" height="21" rx="4" fill="#14161F"/>
+          <rect x="25" y="25" width="21" height="21" rx="4" fill="#14161F"/>
+          <rect x="25" y="50" width="21" height="21" rx="4" fill="#14161F"/>
+          <text x="82" y="71" fill="#14161F" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="100" letter-spacing="6">ESSOMATE</text>
+        </svg>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#contact">Contact</a>
+        <a class="btn btn-ink" href="#contact">Book a call</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <div class="tiles" aria-hidden="true">
+          <span></span><span class="g"></span><span></span>
+          <span class="x"></span><span></span><span class="x"></span>
+        </div>
+        <h1>Your tools, working as one system.</h1>
+        <p class="lead">Make.com automation and front-end development for growing businesses. We build the pieces. We make them work.</p>
+        <div class="actions">
+          <a class="btn btn-gold" href="#services">See what we automate</a>
+          <a class="btn btn-line" href="#contact">Book a call</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="services" id="services">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Services</span>
+          <h2>Two crafts, one goal: less busywork.</h2>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <h3>Make.com automation</h3>
+            <p>We connect the apps you already use so data moves on its own: no copy-paste, no missed steps.</p>
+            <ul>
+              <li>Lead capture to CRM, email and Slack in one flow</li>
+              <li>Invoices, orders and reports generated automatically</li>
+              <li>Fixing and documenting scenarios you already have</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Front-end development</h3>
+            <p>Fast, clean interfaces your customers and team actually enjoy using, built to plug into your automations.</p>
+            <ul>
+              <li>Landing pages and business websites</li>
+              <li>Forms, dashboards and client portals</li>
+              <li>React, Next.js and modern responsive layouts</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="process" id="process">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Process</span>
+          <h2>From scattered pieces to a system that works.</h2>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <h3>Map</h3>
+            <p>A short call to see which tools you use and where time is lost.</p>
+          </div>
+          <div class="step">
+            <h3>Build</h3>
+            <p>We design the scenario or interface and test it on your real data.</p>
+          </div>
+          <div class="step">
+            <h3>Hand over</h3>
+            <p>You get a working system, clear documentation and support when needed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="wrap">
+        <div>
+          <div class="tiles" aria-hidden="true" style="margin-bottom: 24px">
+            <span></span><span class="g"></span><span></span>
+            <span class="x"></span><span></span><span class="x"></span>
+          </div>
+          <h2>Let’s put your pieces together.</h2>
+          <p>Tell us what you’d like to automate or build. We’ll reply within one business day.</p>
+        </div>
+        <div class="contact-actions">
+          <a class="btn btn-gold" href="mailto:hello@tessomate.com">Email us</a>
+          <a class="mail" href="mailto:hello@tessomate.com">hello@tessomate.com</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© <span id="year">2026</span> Tessomate</span>
+      <span>Automation · Interfaces</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
