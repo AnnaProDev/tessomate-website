@@ -2,7 +2,7 @@
   <rect width="96" height="96" rx="22" fill="#14161F"/>
   <g transform="translate(13 13)">
     <rect x="0" y="0" width="21" height="21" rx="4" fill="#F4F1EA"/>
-    <rect x="25" y="0" width="21" height="21" rx="4" fill="#F2B84B"/>
+    <rect x="27" y="2" width="17" height="17" rx="2" fill="#F2B84B" stroke="#F4F1EA" stroke-width="4"/>
     <rect x="50" y="0" width="21" height="21" rx="4" fill="#F4F1EA"/>
     <rect x="25" y="25" width="21" height="21" rx="4" fill="#F4F1EA"/>
     <rect x="25" y="50" width="21" height="21" rx="4" fill="#F4F1EA"/>
